@@ -38,12 +38,13 @@ io.on('connection', (socket) => {
             const memUsage = await osu.mem.info();
             const metrics = await page.metrics();
             const heapSpace = metrics.JSHeapUsedSize;
+            const time = new Date();
 
             const dataPoint = {
                 cpuUsage,
                 memUsage: memUsage.usedMemMb,
                 heapSpace,
-                timestamp: new Date().toISOString(),
+                timestamp: `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`,
             };
 
             // Add new data point to the buffer
@@ -53,8 +54,6 @@ io.on('connection', (socket) => {
             if (performanceDataBuffer.length > 20) {
                 performanceDataBuffer.shift();
             }
-
-            console.log(cpuUsage);
 
             // Emit the new data point to the client
             socket.emit('performanceData', dataPoint);

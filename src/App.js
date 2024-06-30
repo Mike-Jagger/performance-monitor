@@ -9,8 +9,21 @@ const App = () => {
 
     useEffect(() => {
         const socket = socketIOClient(ENDPOINT);
+
+        // Handle initial data
+        socket.on('performanceDataInit', (initialData) => {
+            setData(initialData);
+        });
+
+        // Handle new data points
         socket.on('performanceData', (newData) => {
-            setData(prevData => [...prevData, newData]);
+            setData(prevData => {
+                const updatedData = [...prevData, newData];
+                if (updatedData.length > 20) {
+                    updatedData.shift();
+                }
+                return updatedData;
+            });
         });
 
         return () => socket.disconnect();

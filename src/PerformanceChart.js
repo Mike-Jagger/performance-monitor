@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-// eslint-disable-next-line no-unused-vars
-import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     CategoryScale,
     LinearScale,
+    LineController,
     LineElement,
     PointElement,
     Title,
@@ -15,6 +14,7 @@ import {
 ChartJS.register(
     CategoryScale,
     LinearScale,
+    LineController,
     LineElement,
     PointElement,
     Title,
@@ -26,10 +26,10 @@ const PerformanceChart = ({ data }) => {
     const chartRef = useRef(null);
 
     useEffect(() => {
+        const ctx = document.getElementById('performanceChart').getContext('2d');
         if (chartRef.current) {
             chartRef.current.destroy();
         }
-        const ctx = document.getElementById('performanceChart').getContext('2d');
         chartRef.current = new ChartJS(ctx, {
             type: 'line',
             data: {

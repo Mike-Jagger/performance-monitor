@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,

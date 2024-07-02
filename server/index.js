@@ -17,7 +17,7 @@ const io = socketIo(server, {
 app.use(express.static('public'));
 
 app.use(cors({
-    origin: "http://localhost:3001"
+    origin: "http://localhost:3000"
 }));
 
 // Buffer to store the last 20 data points
